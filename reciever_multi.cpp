@@ -18,8 +18,8 @@ void setup()
 {
 // Initialize ASK Object
   rf_driver.init();
-  pinMode(3,OUTPUT);
-  pinMode(2,OUTPUT);
+  pinMode(4,OUTPUT);
+  pinMode(5,OUTPUT);
 // Setup Serial Monitor
   Serial.begin(9600);
 }
@@ -38,14 +38,14 @@ void loop()
     p1 = strstr((char*)buf,check_1);
     if(p1){
       Serial.println("Found Device 1");
-      digitalWrite(2,HIGH);
+      digitalWrite(4,HIGH);
       counter1 = 0;
     }
     else{
       Serial.println("Not Found");
       counter1++;
       if(counter1 >= 2){
-        digitalWrite(2,LOW);
+        digitalWrite(4,LOW);
         //counter1 = 0;
       }
     }
@@ -54,14 +54,14 @@ void loop()
      // Serial.println(*p2);
     if(p2){
       Serial.println("Found Device 2");
-      digitalWrite(3,HIGH);
+      digitalWrite(5,HIGH);
       counter2 = 0;
     }
     else{
       Serial.println("Not Found");
       counter2++;
       if(counter2 >= 2){
-        digitalWrite(3,LOW);
+        digitalWrite(5,LOW);
       }
     }
       
@@ -70,10 +70,12 @@ void loop()
   }
 
   else{
-    if(millis() - last_time > 3000){
-      // Serial.println("yes im in");
-      digitalWrite(2,LOW);
-      digitalWrite(3,LOW); 
+    if(abs(millis() - last_time) > 3000){
+       Serial.println("yes im in");
+      last_time = millis();
+      //delay(100)
+      digitalWrite(4,LOW);
+      digitalWrite(5,LOW); 
     }
   }
 }
